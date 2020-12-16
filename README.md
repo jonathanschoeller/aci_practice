@@ -2,11 +2,7 @@
 
 ## Prerequisites
 1. Install [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/).
-2. Install Azure CLI
-   ```powershell
-   Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; rm .\AzureCLI.msi
-   ```
-3. Create an Azure resource group and an Azure docker registry, making note of the `loginServer`
+2. Create an Azure resource group and an Azure docker registry, making note of the `loginServer`
    ```Batchfile
    docker-compose run create_resource_group
    docker-compose run create_docker_registry
