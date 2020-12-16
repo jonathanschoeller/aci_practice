@@ -9,3 +9,27 @@ services:
     extends:
       service: base
     command: "bash"
+
+  deploy_base:
+    build: 
+      context: .
+      dockerfile: deploy.dockerfile
+    volumes:
+      - ".:/app"
+    
+  create_resource_group:
+    extends:
+      service: deploy_base
+    command: "bin/create_resource_group"
+
+  create_docker_registry:
+    extends:
+      service: deploy_base
+    command: "bin/create_docker_registry"
+
+  deploy:
+    extends:
+      service: deploy_base
+    command: "bin/deploy"
+    environment:
+      LOGIN_SERVER:
