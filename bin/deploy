@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+
+RESOURCE_GROUP=MyAustraliaeastGroup
+az login
+REGISTRY_CREDS=($(az acr credential show --name $LOGIN_SERVER | jq .username,.passwords[0].value))
+REGISTRY_USER=$(sed -e 's/^"//' -e 's/"$//' <<< ${REGISTRY_CREDS[0]})
+REGISTRY_PASSWORD=$(sed -e 's/^"//' -e 's/"$//' <<< ${REGISTRY_CREDS[1]})
+CONTAINER_NAME=jonathantest
+az deployment group create --resource-group $RESOURCE_GROUP \
+    --template-file deploy/aci-practice.json \
+    --parameters name=$CONTAINER_NAME image=$LOGIN_SERVER/aci-practice registryUser=$REGISTRY_USER registryPassword=$REGISTRY_PASSWORD
+az container attach --name $CONTAINER_NAME --resource-group $RESOURCE_GROUP

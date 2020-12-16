@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+docker build --tag $LOGIN_SERVER/aci-practice .
+az acr login --name myaustraliaeastregistry
+docker push $LOGIN_SERVER/aci-practice
