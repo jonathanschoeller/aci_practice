@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+export LOCATION=${LOCATION:-australiaeast}
+export RESOURCE_GROUP_NAME=${RESOURCE_GROUP_NAME:-myresourcegroup}
+export REGISTRY_NAME=${REGISTRY_NAME:-myregistryacipractice}
+export IMAGE_NAME=${IMAGE_NAME:-acipractice}
+export IMAGE_VERSION=${IMAGE_VERSION:-$(date -u +%Y%m%d%H%M%S)}

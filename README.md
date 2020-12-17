@@ -2,16 +2,30 @@
 
 ## Prerequisites
 1. Install [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/).
-2. Create an Azure resource group and an Azure docker registry, making note of the `loginServer`
+2. Install Azure CLI
    ```Batchfile
-   docker-compose run create_resource_group
-   docker-compose run create_docker_registry
+   Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; rm .\AzureCLI.msi
+   ```
 ## Deploy
-1. Build and publish image
+* Deploy everything
    ```Batchfile
-   LOGIN_SERVER=$loginServer ./bin/publish
+   ./bin/deploy_all
    ```
-2. Login and deploy
+   To deploy to a different resource group named `different`
    ```Batchfile
-   LOGIN_SERVER=$loginServer docker-compose run deploy
+   RESOURCE_GROUP_NAME=different ./bin/deploy_all
    ```
+* Deploy just the docker image
+   ```Batchfile
+   ./bin/publish_and_deploy
+   ```
+
+## Run Locally
+```Batchfile
+docker-composes run base
+```
+
+## Launching a shell in the dev environment
+```Batchfile
+docker-compose run dev
+```

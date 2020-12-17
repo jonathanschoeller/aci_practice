@@ -1,5 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-az login
-az acr create --resource-group MyAustraliaeastGroup --name MyAustraliaeastRegistry --sku Basic --admin-enabled true

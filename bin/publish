@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-docker build --tag $LOGIN_SERVER/aci-practice .
-az acr login --name myaustraliaeastregistry
-docker push $LOGIN_SERVER/aci-practice
+. ./bin/config
+
+echo "Building docker image..."
+docker build --tag $LOGIN_SERVER/$IMAGE_NAME:$IMAGE_VERSION .
+
+echo "Authenticating to docker registry..."
+az acr login --name $REGISTRY_NAME
+
+echo "Pushing docker image..."
+docker push $LOGIN_SERVER/$IMAGE_NAME:$IMAGE_VERSION
