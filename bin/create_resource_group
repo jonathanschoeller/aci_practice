@@ -1,5 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-az login
-az group create --location australiaeast --name MyAustraliaeastGroup

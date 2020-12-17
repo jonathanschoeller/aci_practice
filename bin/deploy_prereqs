@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+. ./bin/config
+
+echo "Creating resource group..."
+az group create --location ${LOCATION} --name ${RESOURCE_GROUP_NAME} >/dev/null
+
+echo "Creating docker registry..."
+LOGIN_SERVER=$(az acr create --resource-group ${RESOURCE_GROUP_NAME} --name ${REGISTRY_NAME} --sku Basic --admin-enabled true \
+    | jq .loginServer)
+
+export LOGIN_SERVER=$(sed -e 's/^"//' -e 's/"$//' <<< ${LOGIN_SERVER})
+mkdir -p ./tmp
+echo $LOGIN_SERVER > ./tmp/login_server.txt

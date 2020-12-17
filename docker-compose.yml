@@ -16,20 +16,12 @@ services:
       dockerfile: deploy.dockerfile
     volumes:
       - ".:/app"
-    
-  create_resource_group:
-    extends:
-      service: deploy_base
-    command: "bin/create_resource_group"
-
-  create_docker_registry:
-    extends:
-      service: deploy_base
-    command: "bin/create_docker_registry"
-
-  deploy:
-    extends:
-      service: deploy_base
-    command: "bin/deploy"
+      - "~/.azure:/tmp/.azure"
     environment:
+      AZURE_CONFIG_DIR: /tmp/.azure
       LOGIN_SERVER:
+      LOCATION:
+      RESOURCE_GROUP_NAME:
+      REGISTRY_NAME:
+      IMAGE_NAME:
+      IMAGE_VERSION:

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+
+export LOGIN_SERVER=$(cat ./tmp/login_server.txt)
+
+. ./bin/publish
+. ./bin/deploy_environment ./bin/deploy

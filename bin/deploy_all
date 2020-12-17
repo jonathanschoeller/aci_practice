@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+./bin/deploy_environment ./bin/deploy_prereqs
+./bin/publish_and_deploy

@@ -4,7 +4,7 @@
     "parameters": {
       "name": {
         "type": "string",
-        "defaultValue": "mypubliccontainergroup",
+        "defaultValue": "mycontainergroup",
         "metadata": {
           "description": "Name for the container group"
         }
@@ -12,14 +12,16 @@
       "image": {
         "type": "string",
         "metadata": {
-          "description": "Container image to deploy. Should be of the form repoName/imagename:tag for images stored in public Docker Hub, or a fully qualified URI for other registries. Images from private registries require additional registry credentials."
+          "description": "Container image to deploy. Should be of the form imagename:tag for images stored in public Docker Hub, or a fully qualified URI for other registries. Images from private registries require additional registry credentials."
         }
       },
       "registryUser": {
-        "type": "string",
-        "defaultValue": "MyAustraliaeastRegistry"
+        "type": "string"
       },
       "registryPassword": {
+        "type": "string"
+      },
+      "registry": {
         "type": "string"
       },
       "port": {
@@ -74,7 +76,7 @@
             {
               "name": "[parameters('name')]",
               "properties": {
-                "image": "[parameters('image')]",
+                "image": "[concat(parameters('registry'),'/',parameters('image'))]",
                 "ports": [
                   {
                     "port": "[parameters('port')]"
@@ -102,18 +104,12 @@
           },
           "imageRegistryCredentials": [
             {
-              "server": "myaustraliaeastregistry.azurecr.io",
+              "server": "[parameters('registry')]",
               "username": "[parameters('registryUser')]",
               "password": "[parameters('registryPassword')]"
             }
           ]
         }
       }
-    ],
-    "outputs": {
-      "containerIPv4Address": {
-        "type": "string",
-        "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('name'))).ipAddress.ip]"
-      }
-    }
+    ]
   }
