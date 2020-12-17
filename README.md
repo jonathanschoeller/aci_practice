@@ -6,6 +6,10 @@
    ```Batchfile
    Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; rm .\AzureCLI.msi
    ```
+3. Login to azure using the cli
+   ```Batchfile
+   az login
+   ```
 ## Deploy
 * Deploy everything
    ```Batchfile
